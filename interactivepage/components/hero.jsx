@@ -28,7 +28,9 @@ const Hero = () => {
               <span className="me-[20px]">09/10</span>
             </div>
           </div>
-          <div className="bg-[url('/images/bg-card-back.png')] bg-cover w-[400px] h-[220px] rounded-md ms-[5rem]"></div>
+          <div className="bg-[url('/images/bg-card-back.png')] bg-cover w-[400px] h-[220px] rounded-md ms-[5rem] text-md">
+            <h1 className="mt-[6rem] ms-[20rem]">000</h1>
+          </div>
         </div>
       </div>
     </div>
