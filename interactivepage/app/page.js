@@ -1,9 +1,8 @@
 import Hero from "@/components/hero";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="w-screen h-fit">
+    <main className="w-screen h-fit font-spaceGrotesk">
       <div>
         <Hero />
       </div>
