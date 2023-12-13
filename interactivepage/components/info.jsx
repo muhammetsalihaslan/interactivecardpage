@@ -8,13 +8,19 @@ const Info = () => {
   const handleInputChange = (e) => {
     const value = e.target.value;
 
-    if (isNaN(value)) {
-      setErrorMessage("Wrong format numbers only");
+    const sanitizedValue = value.replace(/[^\d]/g, "").slice(0, 16);
+
+    const formattedValue = sanitizedValue.replace(/(\d{4})(?=\d)/g, "$1 ");
+
+    if (/\D/.test(sanitizedValue)) {
+      setErrorMessage("Sadece rakam girebilirsiniz.");
+    } else if (sanitizedValue.length > 16) {
+      setErrorMessage("En fazla 16 rakam girilebilir.");
     } else {
       setErrorMessage("");
     }
 
-    setCardNumber(value);
+    setCardNumber(formattedValue);
   };
   return (
     <div>
