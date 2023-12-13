@@ -1,6 +1,21 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 const Info = () => {
+  const [cardNumber, setCardNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    if (isNaN(value)) {
+      setErrorMessage("Wrong format numbers only");
+    } else {
+      setErrorMessage("");
+    }
+
+    setCardNumber(value);
+  };
   return (
     <div>
       <div className="ms-[3rem] mt-[10rem]">
@@ -16,13 +31,20 @@ const Info = () => {
               />
             </div>
             <div className="flex flex-col mt-5">
-              <label htmlFor="cardnumber">CARD NUMBER</label>
+              <label htmlFor="cardNumber">CARD NUMBER</label>
               <input
                 type="text"
-                id="cardnumber"
-                name="cardnumber"
-                className="w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none"
+                id="cardNumber"
+                name="cardNumber"
+                className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
+                  errorMessage ? "border-red-500" : "border-gray-300"
+                }`}
+                value={cardNumber}
+                onChange={handleInputChange}
               />
+              {errorMessage && (
+                <p className="text-red-500 mt-2">{errorMessage}</p>
+              )}
             </div>
           </div>
           <div className="  text-sm mt-5 flex ">
