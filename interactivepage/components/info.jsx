@@ -8,14 +8,14 @@ const Info = () => {
   const handleInputChange = (e) => {
     const value = e.target.value;
 
-    const sanitizedValue = value.replace(/[^\d]/g, "").slice(0, 16);
+    const sanitizedValue = value.slice(0, 19);
 
     const formattedValue = sanitizedValue.replace(/(\d{4})(?=\d)/g, "$1 ");
 
-    if (/\D/.test(sanitizedValue)) {
+    if (/[a-zA-Z]/.test(value)) {
       setErrorMessage("Sadece rakam girebilirsiniz.");
-    } else if (sanitizedValue.length > 16) {
-      setErrorMessage("En fazla 16 rakam girilebilir.");
+    } else if (/\s/.test(value)) {
+      setErrorMessage("");
     } else {
       setErrorMessage("");
     }
