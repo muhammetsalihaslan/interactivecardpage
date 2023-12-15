@@ -3,9 +3,16 @@ import React, { useState } from "react";
 
 const Info = ({ setValueFromFirst }) => {
   const [cardNumber, setCardNumber] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({
+    cardHolder: "",
+    cardNumber: "",
+    expMonth: "",
+    expYear: "",
+    cvc: "",
+  });
   const [cardHolder, setCardHolder] = useState("");
-  const [expDate, setExpDate] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+  const [expYear, setExpYear] = useState("");
   const [cvc, setCvc] = useState("");
 
   const handleInputChange = (e) => {
@@ -16,7 +23,10 @@ const Info = ({ setValueFromFirst }) => {
     const formattedValue = sanitizedValue.replace(/(\d{4})(?=\d)/g, "$1 ");
 
     if (/[a-zA-Z]/.test(value)) {
-      setErrorMessage("only numbers");
+      setErrorMessage((prevError) => ({
+        ...prevError,
+        cardNumber: "numbers only",
+      }));
     } else if (/\s/.test(value)) {
       setErrorMessage("");
     } else {
@@ -27,7 +37,7 @@ const Info = ({ setValueFromFirst }) => {
     setValueFromFirst(formattedValue);
   };
 
-  const handleExpDateChange = (e) => {
+  const handleExpMonth = (e) => {
     const value = e.target.value;
 
     const expDateData = value.slice(0, 2);
@@ -40,7 +50,30 @@ const Info = ({ setValueFromFirst }) => {
       setErrorMessage("");
     }
 
-    setExpDate(expDateData);
+    setExpMonth(expDateData);
+  };
+
+  const handleExpYear = (e) => {
+    const value = e.target.value;
+
+    const expDateData = value.slice(0, 2);
+
+    if (/[a-zA-Z]/.test(value)) {
+      setErrorMessage("date");
+    } else if (/\s/.test(value)) {
+      setErrorMessage("cant be blank");
+    } else {
+      setErrorMessage("");
+    }
+
+    setExpYear(expDateData);
+  };
+
+  const handleBlur = (e) => {
+    const value = e.target.value;
+    if (!value.trim()) {
+      setErrorMessage("Can't be blank");
+    }
   };
 
   return (
@@ -54,9 +87,15 @@ const Info = ({ setValueFromFirst }) => {
                 type="text"
                 id="cardHolder"
                 name="cardHolder"
-                className="w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none"
+                className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
+                  errorMessage ? "border-red-500" : "border-gray-300"
+                }`}
                 value={cardHolder}
+                onBlur={handleBlur}
               />
+              {errorMessage.cardHolder && (
+                <p className="text-red-500 mt-2">{errorMessage}</p>
+              )}
             </div>
             <div className="flex flex-col mt-5">
               <label htmlFor="cardNumber">CARD NUMBER</label>
@@ -69,8 +108,9 @@ const Info = ({ setValueFromFirst }) => {
                 }`}
                 value={cardNumber}
                 onChange={handleInputChange}
+                onBlur={handleBlur}
               />
-              {errorMessage && (
+              {errorMessage.cardNumber && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
               )}
             </div>
@@ -82,23 +122,32 @@ const Info = ({ setValueFromFirst }) => {
                 <input
                   type="text"
                   id="date"
-                  name="mm"
+                  name="expMonth"
                   className={`w-2/12 h-[35px] p-2 mt-1 outline-none border rounded-md ${
                     errorMessage ? "border-red-500" : "border-gray-300"
                   }`}
-                  value={expDate}
-                  onChange={handleExpDateChange}
+                  value={expMonth}
+                  onChange={handleExpMonth}
+                  onBlur={handleBlur}
                 />
+                {errorMessage.expMonth && (
+                  <p className="text-red-500 mt-2">{errorMessage}</p>
+                )}
+
                 <input
                   type="text"
-                  id="date"
-                  name="yy"
+                  id="ydate"
+                  name="expYear"
                   className={`w-2/12 h-[35px] p-2 mt-1 outline-none border rounded-md ms-2 ${
                     errorMessage ? "border-red-500" : "border-gray-300"
                   }`}
-                  value={expDate}
-                  onChange={handleExpDateChange}
+                  value={expYear}
+                  onChange={handleExpYear}
+                  onBlur={handleBlur}
                 />
+                {errorMessage.expYear && (
+                  <p className="text-red-500 mt-2">{errorMessage}</p>
+                )}
               </div>
             </div>
             <div className=" flex flex-col -ms-[230px]   ">
@@ -111,7 +160,11 @@ const Info = ({ setValueFromFirst }) => {
                 name="cvc"
                 className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md ms-2"
                 value={cvc}
+                onBlur={handleBlur}
               />
+              {errorMessage.cvc && (
+                <p className="text-red-500 mt-2">{errorMessage}</p>
+              )}
             </div>
           </div>
           <button
