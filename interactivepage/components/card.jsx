@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const Card = ({ valueFromFirst }) => {
+const Card = ({ valueFromFirst, valueFromSecond }) => {
   return (
     <div>
       <div className="relative">
@@ -24,7 +24,9 @@ const Card = ({ valueFromFirst }) => {
               {valueFromFirst ? valueFromFirst : "0000 0000 0000 0000"}
             </div>
             <div className="flex text-white justify-between text-sm mt-[15px]">
-              <h1 className="ms-[20px]">Salih ASLAN</h1>
+              <h1 className="ms-[20px]">
+                {valueFromSecond ? valueFromSecond : "Salih Aslan"}
+              </h1>
               <span className="me-[20px]">00/00</span>
             </div>
           </div>

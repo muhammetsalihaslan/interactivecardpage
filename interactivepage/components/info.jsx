@@ -1,21 +1,36 @@
 "use client";
 import React, { useState } from "react";
 
-const Info = ({ setValueFromFirst }) => {
+const Info = ({ setValueFromFirst, setValueFromSecond }) => {
   const [cardNumber, setCardNumber] = useState("");
-  const [errorMessage, setErrorMessage] = useState({
-    cardHolder: "",
-    cardNumber: "",
-    expMonth: "",
-    expYear: "",
-    cvc: "",
-  });
+  const [errorMessage, setErrorMessage] = useState({});
   const [cardHolder, setCardHolder] = useState("");
   const [expMonth, setExpMonth] = useState("");
   const [expYear, setExpYear] = useState("");
   const [cvc, setCvc] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleCardHolder = (e) => {
+    const value = e.target.value;
+    setCardHolder(value);
+    setValueFromSecond(value);
+  };
+
+  const handleBlur = () => {
+    const value1 = cardHolder.trim();
+    if (!value1) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        cardHolder: "Can't be blank",
+      }));
+    } else {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        cardHolder: "",
+      }));
+    }
+  };
+
+  const handleCardNumber = (e) => {
     const value = e.target.value;
 
     const sanitizedValue = value.slice(0, 19);
@@ -28,52 +43,19 @@ const Info = ({ setValueFromFirst }) => {
         cardNumber: "numbers only",
       }));
     } else if (/\s/.test(value)) {
-      setErrorMessage("");
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        cardNumber: "",
+      }));
     } else {
-      setErrorMessage("");
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        cardNumber: "",
+      }));
     }
 
     setCardNumber(formattedValue);
     setValueFromFirst(formattedValue);
-  };
-
-  const handleExpMonth = (e) => {
-    const value = e.target.value;
-
-    const expDateData = value.slice(0, 2);
-
-    if (/[a-zA-Z]/.test(value)) {
-      setErrorMessage("date");
-    } else if (/\s/.test(value)) {
-      setErrorMessage("cant be blank");
-    } else {
-      setErrorMessage("");
-    }
-
-    setExpMonth(expDateData);
-  };
-
-  const handleExpYear = (e) => {
-    const value = e.target.value;
-
-    const expDateData = value.slice(0, 2);
-
-    if (/[a-zA-Z]/.test(value)) {
-      setErrorMessage("date");
-    } else if (/\s/.test(value)) {
-      setErrorMessage("cant be blank");
-    } else {
-      setErrorMessage("");
-    }
-
-    setExpYear(expDateData);
-  };
-
-  const handleBlur = (e) => {
-    const value = e.target.value;
-    if (!value.trim()) {
-      setErrorMessage("Can't be blank");
-    }
   };
 
   return (
@@ -88,13 +70,14 @@ const Info = ({ setValueFromFirst }) => {
                 id="cardHolder"
                 name="cardHolder"
                 className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
-                  errorMessage ? "border-red-500" : "border-gray-300"
+                  errorMessage.cardHolder ? "border-red-500" : "border-gray-300"
                 }`}
                 value={cardHolder}
+                onChange={handleCardHolder}
                 onBlur={handleBlur}
               />
               {errorMessage.cardHolder && (
-                <p className="text-red-500 mt-2">{errorMessage}</p>
+                <p style={{ color: "red" }}>{errorMessage.cardHolder}</p>
               )}
             </div>
             <div className="flex flex-col mt-5">
@@ -104,14 +87,13 @@ const Info = ({ setValueFromFirst }) => {
                 id="cardNumber"
                 name="cardNumber"
                 className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
-                  errorMessage ? "border-red-500" : "border-gray-300"
+                  errorMessage.cardNumber ? "border-red-500" : "border-gray-300"
                 }`}
                 value={cardNumber}
-                onChange={handleInputChange}
-                onBlur={handleBlur}
+                onChange={handleCardNumber}
               />
               {errorMessage.cardNumber && (
-                <p className="text-red-500 mt-2">{errorMessage}</p>
+                <p style={{ color: "red" }}>{errorMessage.cardNumber}</p>
               )}
             </div>
           </div>
@@ -124,30 +106,20 @@ const Info = ({ setValueFromFirst }) => {
                   id="date"
                   name="expMonth"
                   className={`w-2/12 h-[35px] p-2 mt-1 outline-none border rounded-md ${
-                    errorMessage ? "border-red-500" : "border-gray-300"
+                    errorMessage.expMonth ? "border-red-500" : "border-gray-300"
                   }`}
                   value={expMonth}
-                  onChange={handleExpMonth}
-                  onBlur={handleBlur}
                 />
-                {errorMessage.expMonth && (
-                  <p className="text-red-500 mt-2">{errorMessage}</p>
-                )}
 
                 <input
                   type="text"
                   id="ydate"
                   name="expYear"
                   className={`w-2/12 h-[35px] p-2 mt-1 outline-none border rounded-md ms-2 ${
-                    errorMessage ? "border-red-500" : "border-gray-300"
+                    errorMessage.expYear ? "border-red-500" : "border-gray-300"
                   }`}
                   value={expYear}
-                  onChange={handleExpYear}
-                  onBlur={handleBlur}
                 />
-                {errorMessage.expYear && (
-                  <p className="text-red-500 mt-2">{errorMessage}</p>
-                )}
               </div>
             </div>
             <div className=" flex flex-col -ms-[230px]   ">
@@ -160,11 +132,7 @@ const Info = ({ setValueFromFirst }) => {
                 name="cvc"
                 className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md ms-2"
                 value={cvc}
-                onBlur={handleBlur}
               />
-              {errorMessage.cvc && (
-                <p className="text-red-500 mt-2">{errorMessage}</p>
-              )}
             </div>
           </div>
           <button
