@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 
-const Info = ({ setValueFromFirst, setValueFromSecond }) => {
+const Info = ({
+  setValueFromFirst,
+  setValueFromSecond,
+  setValueMonth,
+  setValueYear,
+}) => {
   const [cardNumber, setCardNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState({});
   const [cardHolder, setCardHolder] = useState("");
@@ -78,6 +83,8 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
         setExpMonth(monthValue);
       }
     }
+
+    setValueMonth(monthValue);
   };
 
   const handleExpYear = (e) => {
@@ -100,6 +107,8 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
         setExpYear(yearValue);
       }
     }
+
+    setValueYear(yearValue);
   };
 
   const handleYearBlur = () => {
@@ -117,6 +126,8 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
       }));
     }
   };
+
+  const handleCvc = () => {};
 
   return (
     <div>
@@ -208,6 +219,7 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
                 name="cvc"
                 className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md -ms-2 "
                 value={cvc}
+                onChange={handleCvc}
               />
             </div>
           </div>

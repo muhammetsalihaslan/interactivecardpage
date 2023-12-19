@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const Card = ({ valueFromFirst, valueFromSecond }) => {
+const Card = ({ valueFromFirst, valueFromSecond, valueMonth, valueYear }) => {
   return (
     <div>
       <div className="relative">
@@ -27,7 +27,9 @@ const Card = ({ valueFromFirst, valueFromSecond }) => {
               <h1 className="ms-[20px]">
                 {valueFromSecond ? valueFromSecond : "Salih Aslan"}
               </h1>
-              <span className="me-[20px]">00/00</span>
+              <span className="me-[20px]">
+                {valueMonth ? valueMonth : "00"}/{valueYear ? valueYear : "00"}
+              </span>
             </div>
           </div>
           <div className="bg-[url('/images/bg-card-back.png')] bg-cover w-[400px] h-[220px] rounded-md ms-[5rem] text-md">
