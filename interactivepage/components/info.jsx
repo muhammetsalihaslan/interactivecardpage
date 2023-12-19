@@ -181,7 +181,7 @@ const Info = ({
               )}
             </div>
           </div>
-          <div className=" w-1/2  text-sm mt-5 grid grid-cols-2 ">
+          <div className=" w-1/2  text-sm mt-5 lg:grid lg:grid-cols-2 flex flex-col ">
             <div className="w-1/1 flex flex-col">
               <label htmlFor="date">EXP.DATE (MM-YY)</label>
               <div className="flex">
@@ -232,7 +232,7 @@ const Info = ({
                 type="text"
                 id="cvc"
                 name="cvc"
-                className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md -ms-2 "
+                className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md lg:-ms-2  "
                 value={cvc}
                 onChange={handleCvc}
                 maxLength={3}
