@@ -8,6 +8,7 @@ const Hero = () => {
   const [valueFromSecond, setValueFromSecond] = useState("");
   const [valueMonth, setValueMonth] = useState("");
   const [valueYear, setValueYear] = useState("");
+  const [valueCvc, setValueCvc] = useState("");
   return (
     <div className="grid grid-cols-2">
       <Card
@@ -15,12 +16,14 @@ const Hero = () => {
         valueFromSecond={valueFromSecond}
         valueMonth={valueMonth}
         valueYear={valueYear}
+        valueCvc={valueCvc}
       />
       <Info
         setValueFromFirst={setValueFromFirst}
         setValueFromSecond={setValueFromSecond}
         setValueMonth={setValueMonth}
         setValueYear={setValueYear}
+        setValueCvc={setValueCvc}
       />
     </div>
   );

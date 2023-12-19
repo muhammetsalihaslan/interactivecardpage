@@ -6,6 +6,7 @@ const Info = ({
   setValueFromSecond,
   setValueMonth,
   setValueYear,
+  setValueCvc,
 }) => {
   const [cardNumber, setCardNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState({});
@@ -127,7 +128,19 @@ const Info = ({
     }
   };
 
-  const handleCvc = () => {};
+  const handleCvc = (e) => {
+    const value = e.target.value;
+    const isValidInput = /^(0|[1-9]\d{0,2})$/.test(value);
+    if (isValidInput || value === "") {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        cvc: "",
+      }));
+      setCvc(value);
+    }
+
+    setValueCvc(value);
+  };
 
   return (
     <div>
@@ -184,6 +197,7 @@ const Info = ({
                     }`}
                     value={expMonth}
                     onChange={handleExpMonth}
+                    maxLength={2}
                   />
                   {errorMessage.expMonth && (
                     <p style={{ color: "red" }}>{errorMessage.expMonth}</p>
@@ -202,6 +216,7 @@ const Info = ({
                     value={expYear}
                     onChange={handleExpYear}
                     onBlur={handleYearBlur}
+                    maxLength={2}
                   />
                   {errorMessage.expYear && (
                     <p style={{ color: "red" }}>{errorMessage.expYear}</p>
@@ -220,6 +235,7 @@ const Info = ({
                 className="w-1/1 h-[35px] p-2 mt-1 outline-none border rounded-md -ms-2 "
                 value={cvc}
                 onChange={handleCvc}
+                maxLength={3}
               />
             </div>
           </div>
