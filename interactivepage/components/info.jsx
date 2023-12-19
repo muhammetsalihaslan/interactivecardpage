@@ -80,6 +80,44 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
     }
   };
 
+  const handleExpYear = (e) => {
+    const yearValue = e.target.value;
+    const isYearNumeric = /^[1-9]\d{0,1}$/.test(yearValue);
+
+    if (isYearNumeric || yearValue === "") {
+      const numericInput = parseInt(yearValue, 10);
+
+      if (numericInput > 50) {
+        setErrorMessage((prevError) => ({
+          ...prevError,
+          expYear: "to long",
+        }));
+      } else {
+        setErrorMessage((prevError) => ({
+          ...prevError,
+          expYear: "",
+        }));
+        setExpYear(yearValue);
+      }
+    }
+  };
+
+  const handleYearBlur = () => {
+    const value = expYear.trim();
+
+    if (!value && expMonth) {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        expYear: "Can't be blank",
+      }));
+    } else {
+      setErrorMessage((prevErrors) => ({
+        ...prevErrors,
+        expYear: "",
+      }));
+    }
+  };
+
   return (
     <div>
       <div className="ms-[3rem] mt-[10rem]">
@@ -151,6 +189,8 @@ const Info = ({ setValueFromFirst, setValueFromSecond }) => {
                         : "border-gray-300"
                     }`}
                     value={expYear}
+                    onChange={handleExpYear}
+                    onBlur={handleYearBlur}
                   />
                   {errorMessage.expYear && (
                     <p style={{ color: "red" }}>{errorMessage.expYear}</p>
