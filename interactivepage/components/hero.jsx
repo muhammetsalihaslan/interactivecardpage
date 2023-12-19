@@ -10,7 +10,7 @@ const Hero = () => {
   const [valueYear, setValueYear] = useState("");
   const [valueCvc, setValueCvc] = useState("");
   return (
-    <div className="grid grid-cols-2">
+    <div className="sm:grid sm:grid-cols-2 ">
       <Card
         valueFromFirst={valueFromFirst}
         valueFromSecond={valueFromSecond}

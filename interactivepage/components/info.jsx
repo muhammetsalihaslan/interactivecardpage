@@ -146,14 +146,14 @@ const Info = ({
     <div>
       <div className="ms-[3rem] mt-[10rem]">
         <form action="submit" className="">
-          <div className="text-sm">
+          <div className="text-sm ">
             <div className="flex flex-col">
               <label htmlFor="cardholder">CARDHOLDER NAME</label>
               <input
                 type="text"
                 id="cardHolder"
                 name="cardHolder"
-                className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
+                className={`w-4/5 sm:w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
                   errorMessage.cardHolder ? "border-red-500" : "border-gray-300"
                 }`}
                 value={cardHolder}
@@ -170,7 +170,7 @@ const Info = ({
                 type="text"
                 id="cardNumber"
                 name="cardNumber"
-                className={`w-1/2 h-[35px] rounded-md p-2 border mt-1 outline-none ${
+                className={`w-4/5 sm:w-1/2  h-[35px] rounded-md p-2 border mt-1 outline-none ${
                   errorMessage.cardNumber ? "border-red-500" : "border-gray-300"
                 }`}
                 value={cardNumber}
@@ -241,7 +241,7 @@ const Info = ({
           </div>
           <button
             type="submit"
-            className=" w-1/2 text-center p-2 mt-5 outline-none border rounded-md bg-[#1F072F] text-white"
+            className=" w-4/5 sm:w-1/2  text-center p-2 mt-5 outline-none border rounded-md bg-[#1F072F] text-white"
           >
             Confirm
           </button>
