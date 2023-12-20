@@ -46,7 +46,7 @@ const Card = ({
               </span>
             </div>
           </div>
-          <div className="bg-[url('/images/bg-card-back.png')] bg-cover w-[380px] h-[220px] sm:w-[350px] sm:h-[180px] lg:w-[400px] lg:h-[220px] rounded-md md:ms-[5rem] text-md -ms-[5rem] mt-[2rem]">
+          <div className="bg-[url('/images/bg-card-back.png')] bg-cover w-[380px] h-[220px] sm:w-[350px] sm:h-[180px] lg:w-[400px] lg:h-[220px] rounded-md md:ms-[5rem] text-md  mt-[1rem]">
             <h1 className="mt-[6rem] ms-[20rem] sm:mt-[5rem] sm:ms-[17rem] lg:mt-[6rem] lg:ms-[20rem]">
               {valueCvc ? valueCvc : "000"}
             </h1>
